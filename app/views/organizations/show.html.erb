@@ -1,0 +1,43 @@
+<a href="/groups">Dashboard</a>
+<br />
+<h3><%= @org.name %></h3>
+
+<% if not @org.members.where(user:@me).exists? %>
+<form action="/members" method="post">
+  <input type="hidden" name="authenticity_token" value="form_authenticity_token" />
+  <input type="hidden" name="org" value="<%= @org.id %>" />
+  <input type="submit" value="Join Group" />
+</form>
+
+<% else %>
+
+<form action="/members" method="post">
+  <input type="hidden" name="authenticity_token" value="form_authenticity_token" />
+  <input type="hidden" name="_method" value="delete" />
+  <input type="hidden" name="org" value="<%= @org.id %>" />
+  <input type="submit" value="Leave Group" />
+</form>
+<% end %>
+
+<p><%= @org.description %></p>
+
+  <% if @org.members.first.user == @me %>
+    <h4>Created By: Me </h4>
+  <% else  %>
+  <h4>Created By:
+  <%= @org.members.first.user.first_name%>
+  <%= @org.members.first.user.last_name %>
+  </h4>
+  <% end %>
+
+
+<p>
+  Members:
+  <% @members.each do |member| %>
+  <ul>
+    <li>
+      <%= member.user.first_name %> <%= member.user.last_name %>
+    </li>
+  </ul>
+  <% end %>
+</p>

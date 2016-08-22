@@ -1,0 +1,53 @@
+<div class="ct">
+
+
+  <h1>Hello, <%= @user.first_name %> <%= @user.last_name %></h1>
+
+
+  <p>
+    Here are the organizations you may join:
+  </p>
+    <div class="box">
+    <% if @orgs %>
+    <% @orgs.each do |org| %>
+
+    <h2><a href="/groups/<%= org.id%>"><%= org.name %></a></h2><% if org.members.first.user == @user %>
+    <form action="/organizations" method="post">
+      <input type="hidden" name="authenticity_token" value="form_authenticity_token" />
+      <input type="hidden" name="_method" value="delete" />
+      <input type="hidden" name="org" value="<%= org.id %>" />
+      <input type="submit" value="Delete" />
+    </form>
+    <% end %>
+    <p>
+      Members: <%= Member.where(organization:org).count %>
+    </p>
+    <p>
+      <%= org.description %>
+    </p>
+
+    <% end %>
+    <% end %>
+
+
+
+  </div>
+
+  <div class="sidebox">
+    <h3>Create a new organization:</h3>
+    <form action="/organizations" method="post">
+      <input type="hidden" name="authenticity_token" value="form_authenticity_token" />
+      <p>
+        <label>Oranization Name:</label>
+        <input type="text" name="name" />
+      </p>
+      <p>
+        <label>Description:</label>
+        <textarea name="desc" cols="45" rows="8"></textarea>
+      </p>
+      <p>
+        <input type="submit" value="Create" />
+      </p>
+  </div>
+
+</div>
