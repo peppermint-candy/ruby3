@@ -3,7 +3,7 @@
 <fieldset class="box">
   <legend>Register</legend>
   <form action="/users" method="post">
-    <input type="hidden" name="authenticity_token" value="form_authenticity_token" />
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 
     <p>
       <label>First Name:</label>

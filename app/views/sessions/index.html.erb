@@ -13,7 +13,7 @@
 
     <h2><a href="/groups/<%= org.id%>"><%= org.name %></a></h2><% if org.members.first.user == @user %>
     <form action="/organizations" method="post">
-      <input type="hidden" name="authenticity_token" value="form_authenticity_token" />
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
       <input type="hidden" name="_method" value="delete" />
       <input type="hidden" name="org" value="<%= org.id %>" />
       <input type="submit" value="Delete" />

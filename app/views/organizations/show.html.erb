@@ -4,7 +4,7 @@
 
 <% if not @org.members.where(user:@me).exists? %>
 <form action="/members" method="post">
-  <input type="hidden" name="authenticity_token" value="form_authenticity_token" />
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
   <input type="hidden" name="org" value="<%= @org.id %>" />
   <input type="submit" value="Join Group" />
 </form>
@@ -12,7 +12,7 @@
 <% else %>
 
 <form action="/members" method="post">
-  <input type="hidden" name="authenticity_token" value="form_authenticity_token" />
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
   <input type="hidden" name="_method" value="delete" />
   <input type="hidden" name="org" value="<%= @org.id %>" />
   <input type="submit" value="Leave Group" />
